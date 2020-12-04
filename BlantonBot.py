@@ -1,10 +1,9 @@
 #!/bin/bash
 
 from selenium.webdriver import Chrome
-
-# from selenium.webdriver.support.ui import Select
-# from requests_html import HTMLSession, AsyncHTMLSession
-# import time
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions
 
 import env_variables
 
@@ -20,14 +19,7 @@ def main() -> None:
 
     login(driver)
     start_order(driver)
-
-    # SELECT 'Start an Order'
-
-    # Wait for Blantons to become available
-
-    # Select add to order
-
-    # Select Place Order
+    buy_when_clickable(driver)
 
     input()
 
@@ -44,6 +36,18 @@ def login(driver) -> None:
 
 def start_order(driver) -> None:
     driver.find_element_by_class_name("btn-primary").click()
+
+
+def buy_when_clickable(driver) -> None:
+    # retries every 500ms for 600 seconds the button to be clickable
+    try:
+        element = WebDriverWait(driver, 600).until(
+            expected_conditions.element_to_be_clickable((By.XPATH, "/html/body/div[3]/div/div[5]/div[1]/div/div[4]/button")))
+        element.click()
+    except TimeoutError as e:
+        print(e)
+    finally:
+        print("element still unclickable")
 
 
 if __name__ == '__main__':
