@@ -15,4 +15,4 @@ Create new file called env_variables.py in the root directory; enter the followi
 password: str = "PUT YOUR PASSWORD HERE"`
 
 ## Run
-`python3 BlantonBuyBot`
+`python3 BlantonBot`
